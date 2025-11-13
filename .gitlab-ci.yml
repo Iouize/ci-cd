@@ -9,7 +9,7 @@ cache:
     - node_modules/
     - .npm/
 
-  stages:
+stages:
   - validate
   - test
   - build
