@@ -1,14 +1,5 @@
 # .gitlab-ci.yml file
 image: node:latest
-workflow:
-  script: echo "This workflow does NOT create double pipelines!"
-  rules:
-    # Ignore pipelines created by release commits made by release-it (commit message or title)
-    - if: '$CI_COMMIT_MESSAGE =~ /chore: release/'
-      when: never
-    - if: '$CI_COMMIT_TITLE =~ /^chore: release/'
-      when: never
-    - when: always
 cache:
   key:
     files:
