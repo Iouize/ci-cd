@@ -20,6 +20,7 @@ install:
   script:
     # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
+
 lint:
   stage: validate
   rules:
@@ -30,7 +31,16 @@ lint:
     - when: on_success
   script:
     - npm run lint
- 
+
+only-canary:
+  stage: validate
+  rules:
+    - if: '$ENV_TARGET == "canary"'
+      when: on_success
+    - when: never
+  script:
+    - echo "Hello Only Canary !"
+
 unit-test:
   stage: test
   rules:
@@ -42,12 +52,21 @@ unit-test:
   script:
     - npm test
 
+integration-test :
+  stage: test
+  needs:
+    - unit-test
+  script:
+    - echo "Hello Integration !"
+
 e2e-test :
   stage: test
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: on_success
     - when: never
+  needs:
+    - integration-test
   script:
     - echo "Hello E2E"
 
