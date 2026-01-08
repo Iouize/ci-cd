@@ -1,3 +1,4 @@
+# .gitlab-ci.yml
 image: node:latest
 
 cache:
@@ -9,11 +10,11 @@ cache:
     - .npm/
 
 stages:
+  - .pre
   - validate
   - test
   - build
   - release
-  - deploy
 
 install:
   stage: .pre
@@ -34,6 +35,6 @@ release:
   stage: release
   script:
     - npx release-it
+  when: manual
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-      when: manual
