@@ -1,3 +1,4 @@
+# .gitlab-ci.yml
 image: node:latest
 
 cache:
@@ -15,38 +16,18 @@ stages:
   - release
   - deploy
 
-# Job d'installation des dépendances
 install:
   stage: .pre
   script:
+    # define cache dir & use it npm!
     - npm ci --cache .npm --prefer-offline
 
-# Job de validation ESLint
 lint:
   stage: validate
   script:
     - npm run lint
 
-# Job de test
-test:
+unit-test:
   stage: test
   script:
-    - npm test || echo "Tests skipped" # placeholder si pas de tests définis
-
-# Job de build
-build:
-  stage: build
-  script:
-    - echo "Build step placeholder"
-
-# Job de release
-release:
-  stage: release
-  script:
-    - echo "Release step placeholder"
-
-# Job de déploiement
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploy step placeholder"
+    - npm test
