@@ -9,15 +9,13 @@ cache:
     - .npm/
 
 stages:
-  - install
+  - validate
   - test
+  - build
+  - release
+  - deploy
 
-install_dependencies:
-  stage: install
+install:
+  stage: .pre
   script:
-    - npm install
-
-run_tests:
-  stage: test
-  script:
-    - npm test
+    - npm ci --cache .npm --prefer-offline
