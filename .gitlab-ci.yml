@@ -15,12 +15,38 @@ stages:
   - release
   - deploy
 
+# Job d'installation des dépendances
 install:
   stage: .pre
   script:
     - npm install
 
-validate_code:
+# Job de validation ESLint
+validate:
   stage: validate
   script:
-    - echo "Validation du code"
+    - npx eslint . --ext .js --config eslint.config.mjs
+
+# Job de test (exemple avec npm test)
+test:
+  stage: test
+  script:
+    - npm test
+
+# Job de build (exemple)
+build:
+  stage: build
+  script:
+    - echo "Build step placeholder"
+
+# Job de release (exemple)
+release:
+  stage: release
+  script:
+    - echo "Release step placeholder"
+
+# Job de déploiement (exemple)
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy step placeholder"
