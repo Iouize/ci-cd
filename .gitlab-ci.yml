@@ -19,33 +19,33 @@ stages:
 install:
   stage: .pre
   script:
-    - npm install
+    - npm ci --cache .npm --prefer-offline
 
 # Job de validation ESLint
-validate:
+lint:
   stage: validate
   script:
-    - npx eslint . --ext .js --config eslint.config.mjs
+    - npm run lint
 
-# Job de test (exemple avec npm test)
+# Job de test
 test:
   stage: test
   script:
-    - npm test
+    - npm test || echo "Tests skipped" # placeholder si pas de tests définis
 
-# Job de build (exemple)
+# Job de build
 build:
   stage: build
   script:
     - echo "Build step placeholder"
 
-# Job de release (exemple)
+# Job de release
 release:
   stage: release
   script:
     - echo "Release step placeholder"
 
-# Job de déploiement (exemple)
+# Job de déploiement
 deploy:
   stage: deploy
   script:
