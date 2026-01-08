@@ -6,8 +6,9 @@ const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
-    // Ligne de test à rajouter
-  console.log("test");  // <- cette ligne va déclencher ESLint
+
+  // Ligne de test pour vérifier le hook Husky
+  //console.log("test");  // <- cette ligne va déclencher ESLint
 });
 
 app.get('/auth/:secret', (req, res) => {
