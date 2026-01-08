@@ -7,3 +7,17 @@ cache:
   paths:
     - node_modules/
     - .npm/
+
+stages:
+  - install
+  - test
+
+install_dependencies:
+  stage: install
+  script:
+    - npm install
+
+run_tests:
+  stage: test
+  script:
+    - npm test
