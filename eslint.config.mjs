@@ -7,13 +7,14 @@ export default defineConfig([
     languageOptions: {
       sourceType: "commonjs",
       globals: {
-        process: "readonly" // permet d'utiliser process
+        process: "readonly",  // process autorisé
+        console: "readonly"   // console autorisé
       },
     },
     rules: {
-      "no-unused-vars": "error",   // interdit les variables inutilisées
-      "no-undef": "error",         // interdit les variables non définies
-      "no-console": "warn"         // avertit pour console.log
+      "no-unused-vars": "error",
+      "no-undef": "error",
+      "no-console": "warn"   // avertit pour console.log
     }
   }
 ]);
