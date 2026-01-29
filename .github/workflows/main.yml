@@ -43,3 +43,35 @@ jobs:
     steps:
       - name: Canary
         run: echo "HEllo Only Canary!"
+
+  build-image:
+    runs-on: ubuntu-latest
+    needs: [unit-test, integration-test, e2e-test]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Github container registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          # 1. On définit le nom de l'image (en minuscules obligatoire pour docker !)
+          # GitHub permet des majuscules dans le nom de repo, mais Docker déteste ça.
+          IMAGE_NAME=ghcr.io/${{ github.repository }}
+          IMAGE_NAME=$(echo $IMAGE_NAME | tr '[:upper:]' '[:lower:]')
+
+          # 2. On définit les tags (SHA court + latest)
+          TAG_SHA=$IMAGE_NAME:${{ github.sha }}
+          TAG_LATEST=$IMAGE_NAME:latest
+
+          echo "Construction de l'image : $TAG_SHA"
+
+          # 3. Build
+          docker build -t $TAG_SHA -t $TAG_LATEST .
+
+          # 4. Push
+          docker push $TAG_SHA
+          docker push $TAG_LATEST
