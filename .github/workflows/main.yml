@@ -1,0 +1,22 @@
+name: Github Actions Node.js CI
+run-name: Node.js CI
+on: [push]
+jobs:
+  lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Run ESLint
+        run: npm run lint
