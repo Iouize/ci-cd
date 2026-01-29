@@ -7,3 +7,4 @@ Si le secret est sous la forme `secret-<SECRET>` et qu'il correspond au secret c
 
 La route devrait donc renvoyer 200 OK avec la requête suivante  :  
 GET http://localhost:3000/auth/secret-mysecretphrase
+"# trigger pipeline with release job" 
